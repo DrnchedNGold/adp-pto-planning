@@ -17,4 +17,8 @@ declare module "@heroicons/react/24/outline" {
   export const EyeSlashIcon: ComponentType<SVGProps<SVGSVGElement>>;
   export const Bars3Icon: ComponentType<SVGProps<SVGSVGElement>>;
   export const XMarkIcon: ComponentType<SVGProps<SVGSVGElement>>;
+  export const PaperAirplaneIcon: ComponentType<SVGProps<SVGSVGElement>>;
+  
+  // --- NEW ICON FOR AI ASSISTANT ---
+  export const BoltIcon: ComponentType<SVGProps<SVGSVGElement>>; 
 }
