@@ -121,18 +121,18 @@ for _ in range(100):
         "company_id": company_id,
         "employee_id": emp["_id"],
         "team_id": emp["team_id"],
-        "start_date": start_date.isoformat(),
-        "end_date": end_date.isoformat(),
+        "start_date": start_date,
+        "end_date": end_date,
         "days_requested": (end_date - start_date).days + 1,
         "reason": fake.sentence(),
         "status": status,
-        "submitted_at": datetime.utcnow().isoformat(),
+        "submitted_at": datetime.utcnow(),
         "decision": {}
     }
     if status != "pending":
         leave_request["decision"] = {
             "manager_id": emp["manager_id"],  
-            "date": datetime.utcnow().isoformat(),
+            "date": datetime.utcnow(),
             "action": status,
             "note": fake.sentence()
         }
