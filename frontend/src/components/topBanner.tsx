@@ -21,12 +21,6 @@ export default function TopBanner({ isSidePanelOpen, toggleSidePanel }: TopBanne
       `}
     >
       <div className="flex items-center space-x-4">
-        <button
-          onClick={toggleSidePanel}
-          className="p-2 rounded-full text-gray-600 hover:bg-gray-100 transition-colors"
-        >
-          <Bars3Icon className="h-6 w-6" />
-        </button>
 
         <Image
           src="https://placehold.co/40x40/0d9488/ffffff?text=⚡"

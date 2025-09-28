@@ -8,6 +8,7 @@ import {
   PlusIcon,
   ArrowLeftCircleIcon,
   ArrowRightOnRectangleIcon,
+  Bars3Icon,
 } from "@heroicons/react/24/outline";
 
 interface SidePanelProps {
@@ -17,8 +18,7 @@ interface SidePanelProps {
 
 export default function SidePanel({ isOpen, toggle }: SidePanelProps) {
   const menuItems = [
-    { name: "New Chat", href: "/new-chat", icon: PlusIcon, isPrimary: true },
-    { name: "Dashboard", href: "/home", icon: HomeIcon, isPrimary: false },
+    { name: "Dashboard", href: "/home", icon: HomeIcon, isPrimary: true },
     { name: "Chats", href: "/home/chats", icon: ChatBubbleLeftRightIcon, isPrimary: false },
     { name: "Analytics", href: "/home/analytics", icon: ChartBarIcon, isPrimary: false },
   ];
@@ -38,24 +38,35 @@ export default function SidePanel({ isOpen, toggle }: SidePanelProps) {
     >
       {/* Top Section */}
       <div
-        onClick={toggle}
         className={`
-          flex items-center cursor-pointer h-16 px-4 mb-4
+          relative flex items-center h-16 px-4 mb-4
           transition-all duration-300
-          ${isOpen ? "justify-start" : "justify-center"}
+          ${isOpen ? "justify-between" : "justify-center"}
         `}
       >
         {isOpen ? (
-          <h2 className="text-lg font-bold tracking-tight text-white">
-            ChatGPT Clone
-          </h2>
+          <>
+            <span className="text-2xl text-teal-400 animate-pulse">⚡</span>
+            <button
+              onClick={toggle}
+              className="absolute right-4 top-1/2 -translate-y-1/2 p-2 rounded-full text-gray-300 hover:bg-gray-700 transition-colors"
+            >
+              <Bars3Icon className="h-6 w-6" />
+            </button>
+          </>
         ) : (
-          <span className="text-2xl text-teal-400 animate-pulse">⚡</span>
+          <button
+            onClick={toggle}
+            className="relative w-10 h-10 flex items-center justify-center group"
+          >
+            <span className="absolute inset-0 flex items-center justify-center text-2xl text-teal-400 animate-pulse group-hover:hidden transition-all">⚡</span>
+            <Bars3Icon className="h-6 w-6 hidden group-hover:block text-teal-400" />
+          </button>
         )}
       </div>
 
       {/* Middle Section */}
-      <div className="flex-1 overflow-y-hidden px-2">
+      <div className={`flex-1 px-2 ${isOpen ? "overflow-y-auto" : "overflow-hidden"}`}>
         {primaryItem && (
           <a
             href={primaryItem.href}
@@ -154,27 +165,6 @@ export default function SidePanel({ isOpen, toggle }: SidePanelProps) {
             Logout
           </span>
         </a>
-
-        <button
-          onClick={toggle}
-          className={`
-            flex items-center mt-4 w-full py-2 px-3 rounded-lg text-sm text-gray-300
-            hover:bg-gray-700/70 hover:text-white transform transition-all
-            ${isOpen ? "justify-start" : "justify-center"}
-          `}
-        >
-          <ArrowLeftCircleIcon
-            className={`h-5 w-5 transition-transform duration-500 ${isOpen ? "" : "rotate-180"}`}
-          />
-          <span
-            className={`
-              overflow-hidden whitespace-nowrap transition-all duration-300
-              ${isOpen ? "ml-2 max-w-full opacity-100" : "max-w-0 opacity-0"}
-            `}
-          >
-            Collapse
-          </span>
-        </button>
       </div>
     </aside>
   );
