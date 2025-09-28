@@ -4,6 +4,7 @@ import { useAuth } from "@/context/authContext";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { Card, CardHeader, CardTitle, CardContent, CardDescription, CardFooter } from "@/components/ui/card";
+import { DonutChart } from "@/components/ui/DonutChart";
 export default function HomePage() {
     const { user, loading } = useAuth();
     const router = useRouter();
@@ -20,6 +21,15 @@ export default function HomePage() {
 
     return (
         <div className="flex items-center justify-center min-h-screen">
+            <DonutChart
+                sections={[
+                    { value: 30, color: "#f6483bff" },
+                    { value: 70, color: "#10b981" }
+                ]}
+                total={100}
+                size={300}
+                defaultText={"PTO Left"}
+            />
             <Card className="w-full max-w-md shadow-lg">
                 <CardHeader>
                     <CardTitle>Marcus App Template</CardTitle>
