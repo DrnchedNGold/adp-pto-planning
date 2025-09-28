@@ -1,17 +1,21 @@
-from fastapi import APIRouter, Query
+from fastapi import APIRouter
+from pydantic import BaseModel
 from agents.orchestratorAgent import OrchestratorAgent
 
 router = APIRouter()
 orch = OrchestratorAgent()
 
+class LeaveQueryRequest(BaseModel):
+    employee_id: str
+    company_id: str
+    team_id: str
+    query: str
+
 @router.post("/leave-query")
-def leave_query(
-    employee_id: str = Query(...),
-    company_id: str = Query(...),
-    team_id: str = Query(...),
-    query: str = Query(...)
-):
-    """
-    Handle a leave request or chatbot query.
-    """
-    return orch.run(employee_id, company_id, team_id, query)
+def leave_query(request: LeaveQueryRequest):
+    return orch.run(
+        request.employee_id,
+        request.company_id,
+        request.team_id,
+        request.query
+    )
