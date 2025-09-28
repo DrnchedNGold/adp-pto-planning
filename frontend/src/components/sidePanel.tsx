@@ -9,6 +9,7 @@ import {
   ArrowLeftCircleIcon,
   ArrowRightOnRectangleIcon,
   Bars3Icon,
+  BoltIcon,
 } from "@heroicons/react/24/outline";
 
 interface SidePanelProps {
@@ -19,6 +20,7 @@ interface SidePanelProps {
 export default function SidePanel({ isOpen, toggle }: SidePanelProps) {
   const menuItems = [
     { name: "Dashboard", href: "/home", icon: HomeIcon, isPrimary: true },
+    { name: "AI Assistant", href: "/ai-chat", icon: BoltIcon, isPrimary: false },
     { name: "Chats", href: "/home/chats", icon: ChatBubbleLeftRightIcon, isPrimary: false },
     { name: "Analytics", href: "/home/analytics", icon: ChartBarIcon, isPrimary: false },
   ];
