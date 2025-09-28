@@ -55,17 +55,18 @@ export function ChartLineLinear({
   chartMargin = { left: 12, right: 12 },
 }: ChartLineLinearProps) {
   return (
-    <Card>
+    <Card className="w-full flex flex-col">
       <CardHeader>
         <CardTitle>{title}</CardTitle>
         {description && <CardDescription>{description}</CardDescription>}
       </CardHeader>
-      <CardContent>
+      <CardContent className="h-full flex-1 max-h-[220px]">
         <ChartContainer config={config}>
           <LineChart
             accessibilityLayer
             data={data}
             margin={chartMargin}
+            height={180}
           >
             <CartesianGrid vertical={false} />
             <XAxis
