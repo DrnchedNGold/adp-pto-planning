@@ -1,120 +1,42 @@
 "use client";
 
 import { Bars3Icon } from "@heroicons/react/24/outline";
-import Link from "next/link";
-import Image from "next/image";
-import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
-import {
-    DropdownMenu,
-    DropdownMenuTrigger,
-    DropdownMenuContent,
-    DropdownMenuItem,
-} from "@/components/ui/dropdown-menu"; // Import Shadcn dropdown components
-import { useRouter, usePathname } from "next/navigation"; // Import usePathname
-import { signOut } from "firebase/auth";
-import { auth } from "@/lib/firebase";
+
+const Image = ({ src, alt, width, height, className }: { src: string, alt: string, width: number, height: number, className?: string }) => <img src={src} alt={alt} width={width} height={height} className={className} />;
 
 interface TopBannerProps {
-    toggleSidePanel: () => void;
+  isSidePanelOpen: boolean;
+  toggleSidePanel: () => void;
 }
 
-export default function TopBanner({ toggleSidePanel }: TopBannerProps) {
-    const router = useRouter();
-    const pathname = usePathname(); // Get the current path
+export default function TopBanner({ isSidePanelOpen, toggleSidePanel }: TopBannerProps) {
+  return (
+    <header
+      className={`
+        fixed top-0 right-0 h-20
+        bg-white/95 backdrop-blur-md shadow-sm border-b border-gray-200
+        p-4 flex items-center justify-between z-40
+        transition-all duration-300 ease-in-out
+        ${isSidePanelOpen ? "left-64" : "left-20"}
+      `}
+    >
+      <div className="flex items-center space-x-4">
+        <button
+          onClick={toggleSidePanel}
+          className="p-2 rounded-full text-gray-600 hover:bg-gray-100 transition-colors"
+        >
+          <Bars3Icon className="h-6 w-6" />
+        </button>
 
-    // Get current user
-    const user = auth.currentUser;
-
-    // Helper to get initials from displayName
-    const getInitials = (name?: string | null) => {
-        if (!name) return "";
-        const parts = name.trim().split(" ");
-        if (parts.length === 1) return parts[0][0]?.toUpperCase() || "";
-        return (parts[0][0] + parts[parts.length - 1][0]).toUpperCase();
-    };
-
-    const initials = getInitials(user?.displayName).toLowerCase();
-
-
-    // Map paths to page titles
-    const pageTitles: { [key: string]: string } = {
-        "/home": "Home",
-        "/home/settings": "Settings",
-    };
-
-    const pageTitle = pageTitles[pathname] || "Page"; // Default to "Page" if no match
-
-    const handleLogout = async () => {
-        try {
-            await signOut(auth);
-            router.push("/"); // Redirect to landing page
-        } catch (error) {
-            console.error("Failed to log out:", error);
-        }
-    };
-
-    return (
-        <header className="bg-stone-200 dark:bg-stone-800 p-4 shadow border-b border-stone-600 flex items-center justify-between">
-            {/* Left Section: Hamburger Menu, Logo, and Breadcrumb */}
-            <div className="flex items-center space-x-4">
-                <button
-                    onClick={toggleSidePanel}
-                    className="p-2 rounded-md border-none hover:bg-stone-300 dark:hover:bg-stone-700"
-                >
-                    <Bars3Icon className="h-9 w-9 text-gray-800 dark:text-gray-200" />
-                </button>
-                <Link href="/" className="flex items-center">
-                    <Image
-                        src="/logo.png"
-                        alt="Marcus Home"
-                        width={48}
-                        height={48}
-                        className="mr-2"
-                    />
-                </Link>
-                <div className="flex space-x-2 text-md">
-                    <p>{pageTitle}</p> {/* Dynamically display the page title */}
-                </div>
-            </div>
-
-            {/* Center Section: Title */}
-            <div className="flex-grow flex justify-center">
-                <h1 className="text-xl font-semibold">Marcus</h1>
-            </div>
-
-            {/* Right Section: Avatar with Dropdown */}
-            <div className="flex items-center relative">
-                <DropdownMenu>
-                    <DropdownMenuTrigger asChild>
-                        <div className="relative cursor-pointer">
-                            <Avatar className="w-10 h-10">
-                                <AvatarImage src="/path-to-avatar-image.jpg" alt="User Avatar" />
-                                <AvatarFallback className="bg-blue-500 w-full h-full flex items-center justify-center rounded-full">
-                                    {initials || "?"}
-                                </AvatarFallback>
-                            </Avatar>
-                            {/* Down Arrow Indicator */}
-                            <span
-                                className="absolute text-gray-800 dark:text-gray-200 text-xs"
-                                style={{
-                                    bottom: "-4px", // Move the arrow slightly lower
-                                    right: "-4px",  // Move the arrow slightly to the right
-                                }}
-                            >
-                                ▼
-                            </span>
-                        </div>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent align="end" className="w-48">
-                        <DropdownMenuItem onClick={() => router.push("/home/settings")}>
-                            Settings
-                        </DropdownMenuItem>
-                        <DropdownMenuItem onClick={handleLogout}>
-                            Logout
-                        </DropdownMenuItem>
-                    </DropdownMenuContent>
-                </DropdownMenu>
-            </div>
-        </header>
-    );
+        <Image
+          src="https://placehold.co/40x40/0d9488/ffffff?text=⚡"
+          alt="Logo"
+          width={40}
+          height={40}
+          className="rounded-full hidden sm:block"
+        />
+        <h1 className="text-xl font-bold text-gray-900">Dashboard</h1>
+      </div>
+    </header>
+  );
 }

@@ -1,33 +1,29 @@
 "use client";
 
 import { ReactNode, useState } from "react";
-import TopBanner from "@/components/topBanner"; // Import the TopBanner component
-import SidePanel from "@/components/sidePanel"; // Import the SidePanel component
+import TopBanner from "@/components/topBanner";
+import SidePanel from "@/components/sidePanel";
 
 export default function HomeLayout({ children }: { children: ReactNode }) {
-    const [isSidePanelOpen, setIsSidePanelOpen] = useState(true); // Default to true
+  const [isSidePanelOpen, setIsSidePanelOpen] = useState(true);
 
-    const toggleSidePanel = () => {
-        setIsSidePanelOpen((prev) => {
-            return !prev;
-        });
-    };
+  const toggleSidePanel = () => setIsSidePanelOpen(prev => !prev);
 
-    return (
-        <div className="flex flex-col min-h-screen">
-            {/* Top Banner */}
-            <TopBanner toggleSidePanel={toggleSidePanel} />
+  return (
+    <div className="flex min-h-screen bg-gray-50">
+      <SidePanel isOpen={isSidePanelOpen} toggle={toggleSidePanel} />
 
-            {/* Main Layout */}
-            <div className="flex flex-1">
-                {/* Side Navigation */}
-                <SidePanel isSidePanelOpen={isSidePanelOpen} />
+      <div className="flex flex-col flex-1 transition-all duration-300 ease-in-out">
+        <TopBanner isSidePanelOpen={isSidePanelOpen} toggleSidePanel={toggleSidePanel} />
 
-                {/* Main Content */}
-                <main className="flex-1 p-4">
-                    {children}
-                </main>
-            </div>
-        </div>
-    );
+        <main
+          className={`flex-1 p-6 transition-all duration-300 ease-in-out ${
+            isSidePanelOpen ? "ml-64" : "ml-20"
+          }`}
+        >
+          {children}
+        </main>
+      </div>
+    </div>
+  );
 }
