@@ -41,6 +41,16 @@ for i in range(10):
     managers.append(manager)
 manager_ids = db.managers.insert_many(managers).inserted_ids
 
+notices_pool = [
+    "No PTO allowed during product launch week",
+    "Team coverage required during Q4 audits",
+    "Blackout: Jan 1 - Jan 5",
+    "Blackout: End of fiscal year",
+    "No leave during client onboarding week",
+    "Critical sprint — no PTO this week",
+    "Holiday freeze — support team coverage only"
+]
+
 teams = []
 for i in range(10):
     team = {
@@ -48,10 +58,23 @@ for i in range(10):
         "name": f"{fake.word().capitalize()} Team",
         "manager_id": manager_ids[i],
         "members": [],
-        "notices": []
+        "notices": random.sample(notices_pool, k=random.randint(1, 2))
     }
     teams.append(team)
 team_ids = db.teams.insert_many(teams).inserted_ids
+
+roles = [
+    "Software Engineer",
+    "Data Scientist",
+    "Product Manager",
+    "QA Engineer",
+    "DevOps Engineer",
+    "Business Analyst",
+    "UX Designer",
+    "Frontend Developer",
+    "Backend Developer",
+    "Database Administrator"
+]
 
 employees = []
 for i in range(50):
@@ -61,7 +84,9 @@ for i in range(50):
         "team_id": team_ids[team_idx],
         "name": fake.name(),
         "email": fake.email(),
-        "manager_id": manager_ids[team_idx]
+        "manager_id": manager_ids[team_idx],
+        "role": random.choice(roles),
+        "leave_balance": random.randint(5, 25)
     }
     employees.append(employee)
 employee_ids = db.employees.insert_many(employees).inserted_ids
