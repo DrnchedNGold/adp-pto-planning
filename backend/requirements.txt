@@ -1,0 +1,8 @@
+pymongo 
+langchain 
+google-generativeai 
+faker 
+fastapi 
+uvicorn
+python-dotenv
+langchain-google-genai

@@ -1,0 +1,47 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.pyc
+*.pyd
+*.pyo
+*.egg-info/
+.eggs/
+
+# Environments
+.env
+venv/
+env/
+# virtualenv environments
+.venv
+pip-wheel-metadata/
+
+# Editor/IDE specific files
+.vscode/ # VS Code
+.idea/ # PyCharm/IntelliJ
+*.swp # Vim swap files
+*~ # Emacs backup files
+
+# OS generated files
+.DS_Store # macOS
+Thumbs.db # Windows
+ehthumbs.db # Windows
+.directory # Linux
+
+# Logs and temporary files
+*.log
+tmp/
+temp/
+
+# Database files
+*.sqlite3
+*.db
+
+# Uploads/Media (if applicable)
+media/
+uploads/
+
+# Jupyter Notebook files
+.ipynb_checkpoints/
+
+# Build artifacts
+dist/
+build/
